@@ -11,6 +11,8 @@ public:
 
 	Iterador<Tupla<nat,nat>> Laberinto(Tupla<nat,nat> &inicio, Tupla<nat,nat> &fin, Matriz<nat> &laberinto) override;
 
+	template <class T>
+	void QuickSort(Array<T> arr, int low, int high);
 	virtual Iterador<Iterador<Puntero<ICiudad>>> Viajero(Array<Puntero<ICiudad>> &ciudadesDelMapa, Matriz<nat> &mapa, Puntero<ICiudad> &ciudadPartida, Iterador<Puntero<ICiudad>> &ciudadesPasar, nat costoMax) override;
 	
 	virtual Array<nat> Intercalar(Array<nat> &arreglo, nat i, nat m, nat d) override;
