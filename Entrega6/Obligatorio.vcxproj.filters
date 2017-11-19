@@ -13,6 +13,9 @@
     <Filter Include="Implementacion">
       <UniqueIdentifier>{5f63c92d-1635-4d7e-a513-4bf82e999fe4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obligatorio\Lista">
+      <UniqueIdentifier>{012aadf6-935a-4168-9dd9-3adb8389fee8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp">
@@ -26,6 +29,9 @@
     </ClCompile>
     <ClCompile Include="Sistema.cpp">
       <Filter>Implementacion</Filter>
+    </ClCompile>
+    <ClCompile Include="ListaEncadenada.cpp">
+      <Filter>Obligatorio\Lista</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +52,15 @@
     </ClInclude>
     <ClInclude Include="Producto.h">
       <Filter>Obligatorio\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Lista.h">
+      <Filter>Obligatorio\Lista</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaEncadenada.h">
+      <Filter>Obligatorio\Lista</Filter>
+    </ClInclude>
+    <ClInclude Include="Nodo.h">
+      <Filter>Obligatorio\Lista</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -97,12 +97,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp" />
+    <ClCompile Include="ListaEncadenada.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PruebasMock.cpp" />
     <ClCompile Include="Sistema.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CasoDePrueba.h" />
+    <ClInclude Include="Lista.h" />
+    <ClInclude Include="ListaEncadenada.h" />
+    <ClInclude Include="Nodo.h" />
     <ClInclude Include="Producto.h" />
     <ClInclude Include="ICiudad.h" />
     <ClInclude Include="ISistema.h" />
