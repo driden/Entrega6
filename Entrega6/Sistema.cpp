@@ -78,17 +78,13 @@ Array<nat> Sistema::Intercalar(Array<nat> &arreglo, nat i, nat m, nat d)
 	return arr;  //Retorno por defecto
 }
 
-// izq, arriba, derecha, abajo
-int dx[] = { -1,0,1,0 };
-int dy[] = { 0,1,0,-1 };
-
 bool EsMovimientoValido(nat x, nat y, Matriz<bool> visitados)
 {
 	nat ancho = visitados.Ancho;
 	nat largo = visitados.Largo;
 
-	if (x > 0 && x < ancho)
-		if (y > 0 && y < largo)
+	if (x > 0 && x < largo)
+		if (y > 0 && y < ancho)
 			if (!visitados[x][y])
 				return true;
 	return false;
@@ -96,12 +92,12 @@ bool EsMovimientoValido(nat x, nat y, Matriz<bool> visitados)
 
 bool MovimientoEsMismoEje(nat x, nat y,nat x1, nat y1, nat xM, nat yM)
 {
-	bool vertical = x - x1 == 0;
+	bool horizontal = y - y1 == 0;
 
-	if (vertical)
-		return x == xM;
-	else
+	if (horizontal)
 		return y == yM;
+	else
+		return x == xM;
 }
 
 template <class T>
@@ -115,19 +111,24 @@ Matriz<T> ClonarMatriz(Matriz<T> matriz)
 	return m;
 }
 
-void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, Matriz<bool> visitados, 
+// izq, arriba, derecha, abajo
+int dx[] = { -1,0,1,0 };
+int dy[] = { 0,1,0,-1 };
+
+void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, Matriz<bool> &visitados, 
 	Puntero<Lista<Tupla<nat, nat,nat>>> &camino, int cambios)
 {
 	visitados[xO][yO] = true;
 
 	Tupla<nat, nat, nat> t(xO, yO, cambios);
 	camino->Insertar(t);
+
 #ifdef DEBUG
 	std::cout << "visitado (" << xO << "," << yO << ") ? : " <<visitados[xO][yO] <<endl;
 	std::cout <<"("<<xO<<","<<yO<<") cambios: "<< cambios << endl;
 #endif
 
-	if ((xO != xD) && (yO != yD))
+	if ((xO != xD) || (yO != yD))
 	{
 		for (nat i = 0 ; i < 4; i++)
 		{
@@ -143,16 +144,16 @@ void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, M
 				if (MovimientoEsMismoEje(xO, yO,tM.Dato1,tM.Dato2, xM, yM))
 				{
 					Puntero<Lista<Tupla<nat, nat, nat>>> clonCamino1 = camino->Clon();
-					camino = clonCamino1;
+					
 					Matriz<bool> visitados1 = ClonarMatriz(visitados);					
-					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados1, camino, cambios);
+					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados1, clonCamino1, cambios);
 				}					
 				else
 				{
 					Puntero<Lista<Tupla<nat, nat, nat>>> clonCamino2 = camino->Clon();
-					camino = clonCamino2;
+
 					Matriz<bool> visitados2 = ClonarMatriz(visitados);
-					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados2, camino, cambios + 1);
+					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados2, clonCamino2, cambios + 1);
 				}
 			}
 		}

@@ -77,6 +77,15 @@ void Laberinto1()
 	resultado[11] = Tupla<nat, nat>(10, 5);
 	resultado[12] = Tupla<nat, nat>(10, 6);
 
+	for (nat y = 0; y < laberinto.Ancho; y++)
+	{
+		for (nat x = 0; x < laberinto.Largo; x++)
+		{
+			std::cout << laberinto[x][y] << " ";			
+		}
+		std::cout << endl;
+	}
+
 	Iterador<Tupla<nat, nat>> esperado = resultado.ObtenerIterador();
 
 	Puntero<ISistema> interfaz = Inicializar();
@@ -108,12 +117,12 @@ void Laberinto1()
 
 void main()
 {
-	Puntero<ConductorPrueba> cp = new ConductorPrueba();
-	Array<Puntero<Prueba>> pruebas = Array<Puntero<Prueba>>(3);
-	pruebas[0] = new PruebaMemoria();
-	pruebas[1] = new CasoDePrueba(Inicializar);
-	pruebas[2] = pruebas[0];
-	cp->CorrerPruebas(pruebas.ObtenerIterador());
-	//Laberinto1();
+	//Puntero<ConductorPrueba> cp = new ConductorPrueba();
+	//Array<Puntero<Prueba>> pruebas = Array<Puntero<Prueba>>(3);
+	//pruebas[0] = new PruebaMemoria();
+	//pruebas[1] = new CasoDePrueba(Inicializar);
+	//pruebas[2] = pruebas[0];
+	//cp->CorrerPruebas(pruebas.ObtenerIterador());
+	Laberinto1();
 	system("pause");
 }
