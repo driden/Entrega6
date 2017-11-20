@@ -2,6 +2,8 @@
 #include "Lista.h"
 #include "ListaEncadenada.h"
 
+//#define DEBUG
+
 Sistema::Sistema()
 {
 
@@ -23,7 +25,7 @@ int partition(Array<T> arr, int low, int high)
 {
 	T pivot = arr[high];    // pivot
 
-	int i = low - 1 ; // Index of smaller element
+	int i = low - 1; // Index of smaller element
 
 	for (int j = low; j < high; j++)
 	{
@@ -70,7 +72,7 @@ Array<nat> Sistema::Intercalar(Array<nat> &arreglo, nat i, nat m, nat d)
 {
 	// Ordenado ascendentemente entre [i, m]
 	// y [m +1, d]
-	
+
 	Array<nat> arr(arreglo.Largo);
 
 
@@ -90,14 +92,14 @@ bool EsMovimientoValido(nat x, nat y, Matriz<bool> visitados)
 	return false;
 }
 
-bool MovimientoEsMismoEje(nat x, nat y,nat x1, nat y1, nat xM, nat yM)
+bool MovimientoEsMismoEje(nat x, nat y, nat x1, nat y1, nat xM, nat yM)
 {
 	bool horizontal = y - y1 == 0;
 
 	if (horizontal)
 		return y == yM;
-	else
-		return x == xM;
+
+	return x == xM;
 }
 
 template <class T>
@@ -115,8 +117,8 @@ Matriz<T> ClonarMatriz(Matriz<T> matriz)
 int dx[] = { -1,0,1,0 };
 int dy[] = { 0,1,0,-1 };
 
-void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, Matriz<bool> &visitados, 
-	Puntero<Lista<Tupla<nat, nat,nat>>> &camino, int cambios)
+void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, Matriz<bool> &visitados,
+	Puntero<Lista<Tupla<nat, nat, nat>>> &camino, int cambios, Puntero<Lista<Tupla<nat, nat, nat>>> &sol)
 {
 	visitados[xO][yO] = true;
 
@@ -124,47 +126,74 @@ void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, M
 	camino->Insertar(t);
 
 #ifdef DEBUG
-	std::cout << "visitado (" << xO << "," << yO << ") ? : " <<visitados[xO][yO] <<endl;
-	std::cout <<"("<<xO<<","<<yO<<") cambios: "<< cambios << endl;
+	std::cout << "visitado (" << xO << "," << yO << ") ? : " << visitados[xO][yO] << endl;
+	std::cout << "(" << xO << "," << yO << ") cambios: " << cambios << endl;
+	std::cout << "Camino hasta aca: ";
+	Iterador<Tupla<nat, nat, nat>> itTupla = camino->ObtenerIterador();
+	while (itTupla.HayElemento())
+	{
+		Tupla<nat, nat, nat> ttt = itTupla.ElementoActual();
+		std::cout << "(" << ttt.Dato1 << "," << ttt.Dato2 << ") ";
+		itTupla.Avanzar();
+	}
+	std::cout << endl << endl;
+
 #endif
 
 	if ((xO != xD) || (yO != yD))
 	{
-		for (nat i = 0 ; i < 4; i++)
+		for (nat i = 0; i < 4; i++)
 		{
 			int xM = xO + dx[i];
 			int yM = yO + dy[i];
 
-			if (EsMovimientoValido(xM,yM,visitados))
+			if (EsMovimientoValido(xM, yM, visitados))
 			{
-				Tupla<nat, nat, nat> ultimoMov = camino->Obtener(camino->Largo() - 1);			
+				nat largo = camino->Largo();
+				Tupla<nat, nat, nat> ultimoMov = camino->Obtener(largo > 1 ? largo - 2 : largo - 1);
+
 				Tupla<nat, nat, nat> tM(xO, yO, cambios);
 				//camino->Insertar(tM);
 
-				if (MovimientoEsMismoEje(xO, yO,tM.Dato1,tM.Dato2, xM, yM))
+				if (largo < 2 || MovimientoEsMismoEje(xO, yO, ultimoMov.Dato1, ultimoMov.Dato2, xM, yM))
 				{
 					Puntero<Lista<Tupla<nat, nat, nat>>> clonCamino1 = camino->Clon();
-					
-					Matriz<bool> visitados1 = ClonarMatriz(visitados);					
-					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados1, clonCamino1, cambios);
-				}					
+
+					Matriz<bool> visitados1 = ClonarMatriz(visitados);
+					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados1, clonCamino1, cambios, sol);
+				}
 				else
 				{
 					Puntero<Lista<Tupla<nat, nat, nat>>> clonCamino2 = camino->Clon();
 
 					Matriz<bool> visitados2 = ClonarMatriz(visitados);
-					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados2, clonCamino2, cambios + 1);
+					RecorrerLaberinto(xM, yM, xD, yD, laberinto, visitados2, clonCamino2, cambios + 1, sol);
 				}
 			}
 		}
 	}
+	else
+	{
+		if (sol == nullptr)
+			sol = camino;
+		else
+		{
+			int cambiosCamino = camino->Obtener(camino->Largo() - 1).Dato3;
+			int cambiosSolucion = sol->Obtener(sol->Largo() - 1).Dato3;;
+			if (cambiosSolucion > cambiosCamino )
+			{
+				sol = camino;
+			}
+		}
+	}
+
 }
 
 Iterador<Tupla<nat, nat>> Sistema::Laberinto(Tupla<nat, nat> &inicio, Tupla<nat, nat> &fin, Matriz<nat> &laberinto)
 {
-	Matriz<bool> visitados(laberinto.Largo,laberinto.Ancho);
-	for(nat x = 0 ; x < laberinto.Largo; x++)
-		for(nat y = 0; y < laberinto.Ancho; y++)
+	Matriz<bool> visitados(laberinto.Largo, laberinto.Ancho);
+	for (nat x = 0; x < laberinto.Largo; x++)
+		for (nat y = 0; y < laberinto.Ancho; y++)
 		{
 			if (laberinto[x][y] == 0)
 				visitados[x][y] = true;
@@ -172,15 +201,17 @@ Iterador<Tupla<nat, nat>> Sistema::Laberinto(Tupla<nat, nat> &inicio, Tupla<nat,
 				visitados[x][y] = false;
 		}
 
-	Puntero<Lista<Tupla<nat,nat,nat>>> lcamino = new ListaEncadenada<Tupla<nat, nat,nat>>(Comparador<Tupla<nat, nat,nat>>::Default);
+	Puntero<Lista<Tupla<nat, nat, nat>>> lcamino = new ListaEncadenada<Tupla<nat, nat, nat>>(Comparador<Tupla<nat, nat, nat>>::Default);
+	Puntero<Lista<Tupla<nat, nat, nat>>> solucion;
 	int cambios = 0;
-	
-	RecorrerLaberinto(inicio.Dato1, inicio.Dato2, fin.Dato1, fin.Dato2, laberinto, visitados,lcamino,cambios);
 
+	RecorrerLaberinto(inicio.Dato1, inicio.Dato2, fin.Dato1, fin.Dato2, laberinto, visitados, lcamino, cambios, solucion);
 
-	Array<Tupla<nat, nat>> camino(lcamino->Largo());
+	nat largoSol = solucion == nullptr ? 0 : solucion->Largo();
+	Array<Tupla<nat, nat>> camino(largoSol);
 
-	Iterador<Tupla<nat, nat, nat>> itCaminos = lcamino->ObtenerIterador();
+	if (solucion){
+	Iterador<Tupla<nat, nat, nat>> itCaminos = solucion->ObtenerIterador();
 
 	int aux = 0;
 	while (itCaminos.HayElemento())
@@ -191,7 +222,8 @@ Iterador<Tupla<nat, nat>> Sistema::Laberinto(Tupla<nat, nat> &inicio, Tupla<nat,
 		itCaminos.Avanzar();
 		aux++;
 	}
-	return camino.ObtenerIterador();  
+	}
+	return camino.ObtenerIterador();
 }
 
 Array<nat> Sistema::Degustacion(Array<Producto> productos, nat maxDinero, nat maxCalorias, nat maxAlcohol)
