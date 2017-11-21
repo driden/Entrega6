@@ -220,16 +220,73 @@ void Caballo()
 	obtenido = interfaz->CaminoCaballo(Tupla<int, int>(0, 0), Tupla<int, int>(1, 2), 1, 10, pasar.ObtenerIterador(), noPasar.ObtenerIterador());
 }
 
+void Caballo2()
+{
+	Puntero<ISistema> interfaz = Inicializar();
+	Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> obtenido;
+	Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> esperado;
+	Array<Tupla<int, int>> pasar;
+	Array<Tupla<int, int>> noPasar;
+
+	Array<Iterador<Tupla<int, int>>> mejoresCaminos;
+	Array<Tupla<int, int>> camino;
+
+	pasar = Array<Tupla<int, int>>(1);
+	pasar[0] = Tupla<int, int>(1, 2);
+
+	noPasar = Array<Tupla<int, int>>(2);
+	noPasar[0] = Tupla<int, int>(2, 2);
+	noPasar[1] = Tupla<int, int>(2, 1);
+
+
+	camino = Array<Tupla<int, int>>(2);
+	camino[0] = Tupla<int, int>(0, 0);
+	camino[1] = Tupla<int, int>(1, 2);
+
+	pasar = Array<Tupla<int, int>>(4);
+	pasar[0] = Tupla<int, int>(1, 0);
+	pasar[1] = Tupla<int, int>(1, 5);
+	pasar[2] = Tupla<int, int>(5, 5);
+	pasar[3] = Tupla<int, int>(1, 4);
+
+	noPasar = Array<Tupla<int, int>>(4);
+	noPasar[0] = Tupla<int, int>(0, 0);
+	noPasar[1] = Tupla<int, int>(1, 1);
+	noPasar[2] = Tupla<int, int>(3, 3);
+	noPasar[3] = Tupla<int, int>(4, 2);
+
+	obtenido = interfaz->CaminoCaballo(Tupla<int, int>(3, 1), Tupla<int, int>(3, 5), 2, 6, pasar.ObtenerIterador(), noPasar.ObtenerIterador());
+
+	Iterador < Iterador<Tupla<int, int>>> it = obtenido.Dato2;
+
+	while (it.HayElemento())
+	{
+		Iterador<Tupla<int, int>> it2 = it.ElementoActual();
+		std::cout << "Sol: ";
+		while (it2.HayElemento())
+		{
+			int x = it2.ElementoActual().ObtenerDato1();
+			int y = it2.ElementoActual().ObtenerDato2();			
+			std::cout << "(" << x << "," << y << ") ";
+
+			it2.Avanzar();
+		}	
+		std::cout << endl << endl;		
+		it.Avanzar();
+	}
+}
+
 void main()
 {
-	/*Puntero<ConductorPrueba> cp = new ConductorPrueba();
+	Puntero<ConductorPrueba> cp = new ConductorPrueba();
 	Array<Puntero<Prueba>> pruebas = Array<Puntero<Prueba>>(3);
 	pruebas[0] = new PruebaMemoria();
 	pruebas[1] = new CasoDePrueba(Inicializar);
 	pruebas[2] = pruebas[0];
-	cp->CorrerPruebas(pruebas.ObtenerIterador());*/
+	cp->CorrerPruebas(pruebas.ObtenerIterador());
 	
 	//Laberinto2();
-	Caballo();
+	//Caballo();
+	//Caballo2();
 	system("pause");
 }

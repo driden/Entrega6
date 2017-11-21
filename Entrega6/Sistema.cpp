@@ -2,7 +2,7 @@
 #include "Lista.h"
 #include "ListaEncadenada.h"
 
-#define DEBUG
+//#define DEBUG_MATRIZ
 
 Sistema::Sistema()
 {
@@ -87,8 +87,8 @@ bool EsMovimientoValido(nat x, nat y, Matriz<bool> visitados)
 	nat ancho = visitados.Ancho;
 	nat largo = visitados.Largo;
 
-	if (x > 0 && x < largo)
-		if (y > 0 && y < ancho)
+	if (x >= 0 && x < largo)
+		if (y >= 0 && y < ancho)
 			if (!visitados[x][y])
 				return true;
 	return false;
@@ -275,6 +275,7 @@ Matriz<bool> Sistema::CrearMatrizVisitados(const Matriz<int>& tablero)
 			else if (tablero[x][y] == -1)
 				visitados[x][y] = true;
 		}
+	return visitados;
 }
 
 //Movimientos posibles del caballo
@@ -317,11 +318,29 @@ Matriz<int> CrearTablero(nat tamTablero, Iterador<Tupla<int, int>>& pasar, Itera
 	return tablero;
 }
 
-void Caballero(int xO, int yO, int xD, int yD, Matriz<bool> visitados, Puntero<Lista<Tupla<int, int>>> &camino, Puntero<Lista<Tupla<int, int>>> &solucion, int movimientos)
+void Caballero(int xO, int yO, int xD, int yD, Matriz<bool> visitados, Puntero<Lista<Tupla<int, int>>> &camino, Puntero<Lista<Puntero<Lista<Tupla<int, int>>>>> &solucion, int &movSolucion,
+	int movimientos, int cantAPasar, Matriz<int> tablero)
 {
+	if (movimientos > movSolucion) return; //poda
+		
 	visitados[xO][yO] = true; // Marco como visitado el actual
 	// Inserto la coordenada al camino
 	camino->Insertar(Tupla<nat, nat>(xO, yO));
+
+#ifdef DEBUG_MATRIZ
+
+	std::cout << "\n(" << xO << "," << yO << ") movimientos: " << movimientos << endl;
+	std::cout << "Camino hasta aca: ";
+	Iterador<Tupla<nat, nat>> itTupla = camino->ObtenerIterador();
+	while (itTupla.HayElemento())
+	{
+		Tupla<nat, nat> ttt = itTupla.ElementoActual();
+		std::cout << "(" << ttt.Dato1 << "," << ttt.Dato2 << ") ";
+		itTupla.Avanzar();
+	}
+	std::cout << endl << endl;
+
+#endif
 
 	// Si no llegue a destino
 	if ((xO != xD) || (yO != yD))
@@ -336,19 +355,30 @@ void Caballero(int xO, int yO, int xD, int yD, Matriz<bool> visitados, Puntero<L
 				nat largo = camino->Largo();
 				Puntero<Lista<Tupla<int, int>>> clonCamino = camino->Clon();
 				Matriz<bool> clonVisitados = ClonarMatriz(visitados);
-				Caballero(xM, yM, xD, yD, clonVisitados, clonCamino, solucion, movimientos + 1);
+				Caballero(xM, yM, xD, yD, clonVisitados, clonCamino, solucion,movSolucion ,movimientos + 1, tablero[xM][yM] == 1 ? cantAPasar - 1 : cantAPasar,tablero);
 			}
 		}
 	}
 	// Si encontre solucion
 	else
 	{
-		if (solucion == nullptr)
-			solucion = camino;
-		else if (solucion->Largo() > movimientos)
-			solucion = camino;
+		// Para ser solucion tiene que haber pasado por cantAPasar, sino no la considero
+		if (cantAPasar < 1) 
+		{
+			// si tiene la misma cantidad de movimientos
+			if (movimientos == movSolucion)
+			{
+				solucion->Insertar(camino);
+			}
+			// Si es una mejor solucion
+			else if(movimientos < movSolucion)
+			{
+				solucion = new ListaEncadenada<Puntero<Lista<Tupla<int, int>>>>();
+				solucion->Insertar(camino);
+				movSolucion = movimientos;
+			}			
+		}
 	}
-
 }
 
 Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> Sistema::CaminoCaballo
@@ -356,8 +386,8 @@ Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> Sistema::CaminoCaballo
 {
 	Matriz<int> tablero = CrearTablero(tamTablero, pasar, noPasar);
 	Matriz<bool> visitados = CrearMatrizVisitados(tablero);
-
-#ifdef DEBUG
+	int cantidad = static_cast<int>(cantAPasar);
+#ifdef DEBUG_MATRIZ
 	for (nat y = 0; y < tablero.Ancho; y++)
 	{
 		for (nat x = 0; x < tablero.Largo; x++)
@@ -367,8 +397,25 @@ Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> Sistema::CaminoCaballo
 		std::cout << endl;
 	}
 #endif
+	
+	Puntero<Lista<Tupla<int, int>>> camino = new ListaEncadenada<Tupla<int, int>>();
+	Puntero<Lista<Puntero<Lista<Tupla<int, int>>>>> sol = new ListaEncadenada<Puntero<Lista<Tupla<int,int>>>>();
+	int movSolucion = 1000;
+	int moviMientos = 0;
+	Caballero(salida.Dato1, salida.Dato2, destino.Dato1, destino.Dato2, visitados, camino, sol, movSolucion, moviMientos, cantidad, tablero);
 
-	return Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>>();
+	Array<Iterador<Tupla<int, int>>> arrIterador (sol->Largo());
+	Iterador<Puntero<Lista<Tupla<int, int>>>> itListaTupla = sol->ObtenerIterador();
+	int i = 0;
+
+	while(itListaTupla.HayElemento())
+	{
+		arrIterador[i] = itListaTupla.ElementoActual()->ObtenerIterador();
+		itListaTupla.Avanzar();
+		i++;
+	}
+	
+	return Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> (OK, arrIterador.ObtenerIterador());
 }
 
 Tupla<TipoRetorno, Array<nat>> Sistema::OptimizarGranja(Array<Tupla<nat, nat, nat>>& semillas, nat dinero, nat tierra, nat agua)
