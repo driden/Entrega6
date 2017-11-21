@@ -2,7 +2,7 @@
 #include "Lista.h"
 #include "ListaEncadenada.h"
 
-//#define DEBUG
+#define DEBUG
 
 Sistema::Sistema()
 {
@@ -80,6 +80,8 @@ Array<nat> Sistema::Intercalar(Array<nat> &arreglo, nat i, nat m, nat d)
 	return arr;  //Retorno por defecto
 }
 
+// PRE: -
+// POS: devuelve true sii (x,y) es un punto en la matriz y no se encuentra visitada
 bool EsMovimientoValido(nat x, nat y, Matriz<bool> visitados)
 {
 	nat ancho = visitados.Ancho;
@@ -92,6 +94,9 @@ bool EsMovimientoValido(nat x, nat y, Matriz<bool> visitados)
 	return false;
 }
 
+// PRE:
+// POS: devuelve true sii (xM, yM) es un movimiento en el mismo eje que 
+//	el de la recta dada por los puntos (x1,y1) e (x,y)
 bool MovimientoEsMismoEje(nat x, nat y, nat x1, nat y1, nat xM, nat yM)
 {
 	bool horizontal = y - y1 == 0;
@@ -102,6 +107,8 @@ bool MovimientoEsMismoEje(nat x, nat y, nat x1, nat y1, nat xM, nat yM)
 	return x == xM;
 }
 
+// PRE:
+// POS: devuelve una deep copy de la matriz 
 template <class T>
 Matriz<T> ClonarMatriz(Matriz<T> matriz)
 {
@@ -117,6 +124,8 @@ Matriz<T> ClonarMatriz(Matriz<T> matriz)
 int dx[] = { -1,0,1,0 };
 int dy[] = { 0,1,0,-1 };
 
+// PRE: (xO, yO), (xD, yD) pertenecen al laberinto 
+// POS: Mueve el laberinto en 1 posicion valida y evalua si encontro una solucion, sino sigue moviendose
 void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, Matriz<bool> &visitados,
 	Puntero<Lista<Tupla<nat, nat, nat>>> &camino, int cambios, Puntero<Lista<Tupla<nat, nat, nat>>> &sol)
 {
@@ -180,7 +189,7 @@ void RecorrerLaberinto(nat xO, nat yO, nat xD, nat yD, Matriz<nat> &laberinto, M
 		{
 			int cambiosCamino = camino->Obtener(camino->Largo() - 1).Dato3;
 			int cambiosSolucion = sol->Obtener(sol->Largo() - 1).Dato3;;
-			if (cambiosSolucion > cambiosCamino )
+			if (cambiosSolucion > cambiosCamino)
 			{
 				sol = camino;
 			}
@@ -210,18 +219,18 @@ Iterador<Tupla<nat, nat>> Sistema::Laberinto(Tupla<nat, nat> &inicio, Tupla<nat,
 	nat largoSol = solucion == nullptr ? 0 : solucion->Largo();
 	Array<Tupla<nat, nat>> camino(largoSol);
 
-	if (solucion){
-	Iterador<Tupla<nat, nat, nat>> itCaminos = solucion->ObtenerIterador();
+	if (solucion) {
+		Iterador<Tupla<nat, nat, nat>> itCaminos = solucion->ObtenerIterador();
 
-	int aux = 0;
-	while (itCaminos.HayElemento())
-	{
-		Tupla<nat, nat, nat> t = itCaminos.ElementoActual();
-		camino[aux] = Tupla<nat, nat>(t.Dato1, t.Dato2);
+		int aux = 0;
+		while (itCaminos.HayElemento())
+		{
+			Tupla<nat, nat, nat> t = itCaminos.ElementoActual();
+			camino[aux] = Tupla<nat, nat>(t.Dato1, t.Dato2);
 
-		itCaminos.Avanzar();
-		aux++;
-	}
+			itCaminos.Avanzar();
+			aux++;
+		}
 	}
 	return camino.ObtenerIterador();
 }
@@ -254,9 +263,110 @@ Array<nat> Sistema::QuickSort(Array<nat> elementos)
 	return elementos;
 }
 
-Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> Sistema::CaminoCaballo(Tupla<int, int>& salida, Tupla<int, int>& destino, nat cantAPasar, nat tamTablero, Iterador<Tupla<int, int>>& pasar, Iterador<Tupla<int, int>>& noPasar)
+Matriz<bool> Sistema::CrearMatrizVisitados(const Matriz<int>& tablero)
 {
-	//Implementar.
+	Matriz<bool> visitados(tablero.Largo);
+
+	for (nat x = 0; x < tablero.Largo; x++)
+		for (nat y = 0; y < tablero.Largo; y++)
+		{
+			if (tablero[x][y] == 0)
+				visitados[x][y] = false;
+			else if (tablero[x][y] == -1)
+				visitados[x][y] = true;
+		}
+}
+
+//Movimientos posibles del caballo
+int xCaballo[] = { -1, 1, 2,2,1,-1,-2,-2 };
+int yCaballo[] = { -2,-2,-1,1,2, 2, 1,-1 };
+// PRE: -
+// POS: Crea una matriz con -1, 0 y 1s con la siguiente nomenclatura
+// No pasar: -1
+// Indiferente: 0
+// Pasar: 1
+Matriz<int> CrearTablero(nat tamTablero, Iterador<Tupla<int, int>>& pasar, Iterador<Tupla<int, int>>& noPasar)
+{
+	Matriz<int> tablero(tamTablero, tamTablero);
+
+	for (nat x = 0; x < tablero.Largo; x++)
+		for (nat y = 0; y < tablero.Largo; y++)
+			tablero[x][y] = 0;
+
+	pasar.Reiniciar();
+	noPasar.Reiniciar();
+
+	while (pasar.HayElemento())
+	{
+		Tupla<int, int> t = pasar.ElementoActual();
+		int x = t.ObtenerDato1(), y = t.ObtenerDato2();
+		tablero[x][y] = 1;
+		pasar.Avanzar();
+	}
+
+	while (noPasar.HayElemento())
+	{
+		Tupla<int, int> t = noPasar.ElementoActual();
+		int x = t.ObtenerDato1(), y = t.ObtenerDato2();
+		tablero[x][y] = -1;
+		noPasar.Avanzar();
+	}
+
+	pasar.Reiniciar();
+	noPasar.Reiniciar();
+	return tablero;
+}
+
+void Caballero(int xO, int yO, int xD, int yD, Matriz<bool> visitados, Puntero<Lista<Tupla<int, int>>> &camino, Puntero<Lista<Tupla<int, int>>> &solucion, int movimientos)
+{
+	visitados[xO][yO] = true; // Marco como visitado el actual
+	// Inserto la coordenada al camino
+	camino->Insertar(Tupla<nat, nat>(xO, yO));
+
+	// Si no llegue a destino
+	if ((xO != xD) || (yO != yD))
+	{
+		for (nat i = 0; i < 8; i++)
+		{
+			const int xM = xO + xCaballo[i];
+			const int yM = yO + yCaballo[i];
+
+			if (EsMovimientoValido(xM, yM, visitados))
+			{
+				nat largo = camino->Largo();
+				Puntero<Lista<Tupla<int, int>>> clonCamino = camino->Clon();
+				Matriz<bool> clonVisitados = ClonarMatriz(visitados);
+				Caballero(xM, yM, xD, yD, clonVisitados, clonCamino, solucion, movimientos + 1);
+			}
+		}
+	}
+	// Si encontre solucion
+	else
+	{
+		if (solucion == nullptr)
+			solucion = camino;
+		else if (solucion->Largo() > movimientos)
+			solucion = camino;
+	}
+
+}
+
+Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> Sistema::CaminoCaballo
+(Tupla<int, int>& salida, Tupla<int, int>& destino, nat cantAPasar, nat tamTablero, Iterador<Tupla<int, int>>& pasar, Iterador<Tupla<int, int>>& noPasar)
+{
+	Matriz<int> tablero = CrearTablero(tamTablero, pasar, noPasar);
+	Matriz<bool> visitados = CrearMatrizVisitados(tablero);
+
+#ifdef DEBUG
+	for (nat y = 0; y < tablero.Ancho; y++)
+	{
+		for (nat x = 0; x < tablero.Largo; x++)
+		{
+			std::cout << tablero[x][y] << " ";
+		}
+		std::cout << endl;
+	}
+#endif
 
 	return Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>>();
 }
