@@ -16,6 +16,12 @@
     <Filter Include="Obligatorio\Lista">
       <UniqueIdentifier>{012aadf6-935a-4168-9dd9-3adb8389fee8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obligatorio\Tabla">
+      <UniqueIdentifier>{b21e7508-c3b5-4766-8bba-0901de699681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obligatorio\Degustacion">
+      <UniqueIdentifier>{81b38167-3f7f-41d6-a4cc-924d703aa5a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp">
@@ -32,6 +38,24 @@
     </ClCompile>
     <ClCompile Include="ListaEncadenada.cpp">
       <Filter>Obligatorio\Lista</Filter>
+    </ClCompile>
+    <ClCompile Include="Mochila.cpp">
+      <Filter>Implementacion</Filter>
+    </ClCompile>
+    <ClCompile Include="HashAbiertoImpl.cpp">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClCompile>
+    <ClCompile Include="CapacidadDegustacion.cpp">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparacionTuplaKV.cpp">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClCompile>
+    <ClCompile Include="TablaIteracion.cpp">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClCompile>
+    <ClCompile Include="EjercicioDegustacion.cpp">
+      <Filter>Obligatorio\Degustacion</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +85,30 @@
     </ClInclude>
     <ClInclude Include="Nodo.h">
       <Filter>Obligatorio\Lista</Filter>
+    </ClInclude>
+    <ClInclude Include="Mochila.h">
+      <Filter>Implementacion</Filter>
+    </ClInclude>
+    <ClInclude Include="HashAbiertoImpl.h">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClInclude>
+    <ClInclude Include="Tabla.h">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClInclude>
+    <ClInclude Include="CapacidadDegustacion.h">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparacionTuplaKV.h">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoTabla.h">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClInclude>
+    <ClInclude Include="TablaIteracion.h">
+      <Filter>Obligatorio\Tabla</Filter>
+    </ClInclude>
+    <ClInclude Include="EjercicioDegustacion.h">
+      <Filter>Obligatorio\Degustacion</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

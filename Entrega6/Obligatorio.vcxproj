@@ -96,22 +96,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CapacidadDegustacion.cpp" />
     <ClCompile Include="CasoDePrueba.cpp" />
+    <ClCompile Include="ComparacionTuplaKV.cpp" />
+    <ClCompile Include="EjercicioDegustacion.cpp" />
+    <ClCompile Include="HashAbiertoImpl.cpp" />
     <ClCompile Include="ListaEncadenada.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mochila.cpp" />
     <ClCompile Include="PruebasMock.cpp" />
     <ClCompile Include="Sistema.cpp" />
+    <ClCompile Include="TablaIteracion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CapacidadDegustacion.h" />
     <ClInclude Include="CasoDePrueba.h" />
+    <ClInclude Include="ComparacionTuplaKV.h" />
+    <ClInclude Include="EjercicioDegustacion.h" />
+    <ClInclude Include="HashAbiertoImpl.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="ListaEncadenada.h" />
+    <ClInclude Include="Mochila.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="NodoTabla.h" />
     <ClInclude Include="Producto.h" />
     <ClInclude Include="ICiudad.h" />
     <ClInclude Include="ISistema.h" />
     <ClInclude Include="PruebasMock.h" />
     <ClInclude Include="Sistema.h" />
+    <ClInclude Include="Tabla.h" />
+    <ClInclude Include="TablaIteracion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
