@@ -30,6 +30,7 @@ public:
 	//POST: Ordena el array usando la tecnica de quicksort.
 	virtual Array<nat> QuickSort(Array<nat> elementos) override;
 
+	Matriz<bool> CrearMatrizVisitados(const Matriz<int>& matriz);
 	//PRE: pasar y noPasar son iteradores de casillas validas
 	//POS: OK si existe camino. Iterador de mejores camino (cada camino se representa con un Iterador de casillas o Tuplas<int, int>)
 	virtual Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> CaminoCaballo(Tupla<int, int>& salida, Tupla<int, int>& destino, nat cantAPasar, nat tamTablero, Iterador<Tupla<int, int>>& pasar, Iterador<Tupla<int, int>>& noPasar) override;
