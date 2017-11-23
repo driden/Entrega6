@@ -2,6 +2,7 @@
 #include "Lista.h"
 #include "ListaEncadenada.h"
 #include "EjercicioDegustacion.h"
+#include "EjercicioProtectoraAnimales.h"
 
 //#define DEBUG_MATRIZ
 
@@ -241,7 +242,7 @@ Array<nat> Sistema::Degustacion(Array<Producto> productos, nat maxDinero, nat ma
 	EjercicioDegustacion degustacion(productos,maxDinero,maxCalorias,maxAlcohol);
 
 
-	return degustacion.Resolver();  //Retorno por defecto
+	return degustacion.Resolver();
 }
 
 Tupla<TipoRetorno, Iterador<nat>> Sistema::Viajero2(Matriz<Tupla<nat, nat, nat>> relacionesCiudades, Iterador<nat> CiudadesPasar, Iterador<nat> CiudadesNoPasar)
@@ -253,9 +254,8 @@ Tupla<TipoRetorno, Iterador<nat>> Sistema::Viajero2(Matriz<Tupla<nat, nat, nat>>
 
 Tupla<TipoRetorno, Array<nat>> Sistema::ProteccionAnimales(Array<Accion> acciones, nat maxVeterinarios, nat maxVehiculos, nat maxDinero, nat maxVacunas, nat maxVoluntarios)
 {
-	//Implementar.
-
-	return Tupla<TipoRetorno, Array<nat>>();
+	EjercicioProtectoraAnimales protectora(acciones, maxVeterinarios, maxVehiculos, maxDinero, maxVacunas, maxVoluntarios);
+	return Tupla<TipoRetorno, Array<nat>>(OK, protectora.Resolver());
 }
 
 Array<nat> Sistema::QuickSort(Array<nat> elementos)

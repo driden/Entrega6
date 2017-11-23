@@ -97,9 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CapacidadDegustacion.cpp" />
+    <ClCompile Include="CapacidadProtectora.cpp" />
     <ClCompile Include="CasoDePrueba.cpp" />
     <ClCompile Include="ComparacionTuplaKV.cpp" />
     <ClCompile Include="EjercicioDegustacion.cpp" />
+    <ClCompile Include="EjercicioProtectoraAnimales.cpp" />
     <ClCompile Include="HashAbiertoImpl.cpp" />
     <ClCompile Include="ListaEncadenada.cpp" />
     <ClCompile Include="main.cpp" />
@@ -110,9 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CapacidadDegustacion.h" />
+    <ClInclude Include="CapacidadProtectora.h" />
     <ClInclude Include="CasoDePrueba.h" />
     <ClInclude Include="ComparacionTuplaKV.h" />
     <ClInclude Include="EjercicioDegustacion.h" />
+    <ClInclude Include="EjercicioProtectoraAnimales.h" />
     <ClInclude Include="HashAbiertoImpl.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="ListaEncadenada.h" />

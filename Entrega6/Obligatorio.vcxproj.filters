@@ -22,6 +22,9 @@
     <Filter Include="Obligatorio\Degustacion">
       <UniqueIdentifier>{81b38167-3f7f-41d6-a4cc-924d703aa5a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obligatorio\Protectora de animales">
+      <UniqueIdentifier>{c4c6648a-95e3-43d8-bbf3-be13c4f8b073}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp">
@@ -45,9 +48,6 @@
     <ClCompile Include="HashAbiertoImpl.cpp">
       <Filter>Obligatorio\Tabla</Filter>
     </ClCompile>
-    <ClCompile Include="CapacidadDegustacion.cpp">
-      <Filter>Obligatorio\Tabla</Filter>
-    </ClCompile>
     <ClCompile Include="ComparacionTuplaKV.cpp">
       <Filter>Obligatorio\Tabla</Filter>
     </ClCompile>
@@ -56,6 +56,15 @@
     </ClCompile>
     <ClCompile Include="EjercicioDegustacion.cpp">
       <Filter>Obligatorio\Degustacion</Filter>
+    </ClCompile>
+    <ClCompile Include="EjercicioProtectoraAnimales.cpp">
+      <Filter>Obligatorio\Protectora de animales</Filter>
+    </ClCompile>
+    <ClCompile Include="CapacidadDegustacion.cpp">
+      <Filter>Obligatorio\Degustacion</Filter>
+    </ClCompile>
+    <ClCompile Include="CapacidadProtectora.cpp">
+      <Filter>Obligatorio\Protectora de animales</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +104,6 @@
     <ClInclude Include="Tabla.h">
       <Filter>Obligatorio\Tabla</Filter>
     </ClInclude>
-    <ClInclude Include="CapacidadDegustacion.h">
-      <Filter>Obligatorio\Tabla</Filter>
-    </ClInclude>
     <ClInclude Include="ComparacionTuplaKV.h">
       <Filter>Obligatorio\Tabla</Filter>
     </ClInclude>
@@ -109,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="EjercicioDegustacion.h">
       <Filter>Obligatorio\Degustacion</Filter>
+    </ClInclude>
+    <ClInclude Include="EjercicioProtectoraAnimales.h">
+      <Filter>Obligatorio\Protectora de animales</Filter>
+    </ClInclude>
+    <ClInclude Include="CapacidadDegustacion.h">
+      <Filter>Obligatorio\Degustacion</Filter>
+    </ClInclude>
+    <ClInclude Include="CapacidadProtectora.h">
+      <Filter>Obligatorio\Protectora de animales</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
