@@ -1,6 +1,7 @@
 ﻿#include "Sistema.h"
 #include "Lista.h"
 #include "ListaEncadenada.h"
+#include "EjercicioDegustacion.h"
 
 //#define DEBUG_MATRIZ
 
@@ -237,10 +238,10 @@ Iterador<Tupla<nat, nat>> Sistema::Laberinto(Tupla<nat, nat> &inicio, Tupla<nat,
 
 Array<nat> Sistema::Degustacion(Array<Producto> productos, nat maxDinero, nat maxCalorias, nat maxAlcohol)
 {
-	/*
-	Codigo de implementacion de la solucion
-	*/
-	return Array<nat>(productos.Largo);  //Retorno por defecto
+	EjercicioDegustacion degustacion(productos,maxDinero,maxCalorias,maxAlcohol);
+
+
+	return degustacion.Resolver();  //Retorno por defecto
 }
 
 Tupla<TipoRetorno, Iterador<nat>> Sistema::Viajero2(Matriz<Tupla<nat, nat, nat>> relacionesCiudades, Iterador<nat> CiudadesPasar, Iterador<nat> CiudadesNoPasar)

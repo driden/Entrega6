@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 class CapacidadDegustacion
 {
 public:
@@ -25,4 +27,8 @@ public:
 
 };
 
+//inline CapacidadDegustacion operator* (const CapacidadDegustacion& capacidad, const int &x)
+//{
+//	return CapacidadDegustacion(x*capacidad.alcohol, x*capacidad.dinero, x*capacidad.calorias);
+//}
 

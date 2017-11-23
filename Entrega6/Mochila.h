@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Puntero.h"
 #include "HashAbiertoImpl.h"
 
 #define INFINITO 100000
@@ -28,13 +27,16 @@ public:
 		
 	}
 	~Mochila(){}
-	bool FueCalculado(Capacidad capcidad, int objetoHasta, Puntero<Tabla<Coordenada<Capacidad>, int>> bdMochila);
+
 	void MochilaBT(Capacidad capacidad, int objectoActual, Array<int> solucionActual, Array<int> solucionOptima,
-	               int valorActual, int& valorOptimo, Array<int> peso, Array<int> valor, Array<int> cantidad);
+	               int valorActual, int& valorOptimo, Array<Capacidad> peso, Array<int> valor, Array<int> cantidad);
 
 	//int ValorMochila(Capacidad capacidad, int objetoHasta, Array<Capacidad> peso, Array<int> valor,
 	//                 Puntero<Tabla<Coordenada<Capacidad>, int>> bdMochila);
-
+private:
+	bool FueCalculado(Capacidad capcidad, int objetoHasta, Puntero<Tabla<Coordenada<Capacidad>, int>> bdMochila);
+	bool EncontreUnaSolucionMejor(const int valorActual, const int valorOptimo);
+	bool Termine(const int objetoActual);
 };
 
 #include "Mochila.cpp"

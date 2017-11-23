@@ -1,7 +1,6 @@
 ﻿#ifndef MOCHILA_CPP_
 #define MOCHILA_CPP_
 #include "Mochila.h"
-#include <algorithm>
 
 template<class Capacidad>
 bool Mochila<Capacidad>::FueCalculado(Capacidad capacidad, int objetoHasta, 
@@ -10,7 +9,6 @@ bool Mochila<Capacidad>::FueCalculado(Capacidad capacidad, int objetoHasta,
 	Coordenada<Capacidad> co(capacidad, objetoHasta);
 	return bdMochila->EstaDefinida(co);
 }
-
 
 //template <class Capacidad>
 //int Mochila<Capacidad>::ValorMochila(Capacidad capacidad, int objetoHasta, Array<Capacidad> peso, Array<int> valor,
@@ -30,20 +28,20 @@ bool Mochila<Capacidad>::FueCalculado(Capacidad capacidad, int objetoHasta,
 //		return bdMochila->Obtener(co);
 //
 //}
-
-bool EncontreUnaSolucionMejor(const int valorActual, const int valorOptimo)
+template <class Capacidad>
+bool Mochila<Capacidad>::EncontreUnaSolucionMejor(const int valorActual, const int valorOptimo)
 {
 	return valorActual > valorOptimo;
 }
-
-bool Termine(const int objetoActual)
+template <class Capacidad>
+bool Mochila<Capacidad>::Termine(const int objetoActual)
 {
 	return objetoActual < 0;
 }
 
 template <class Capacidad>
 void Mochila<Capacidad>::MochilaBT(Capacidad capacidad, int objectoActual, Array<int> solucionActual,
-	Array<int> solucionOptima, int valorActual, int &valorOptimo, Array<int> peso, Array<int> valor, Array<int> cantidad)
+	Array<int> solucionOptima, int valorActual, int &valorOptimo, Array<Capacidad> peso, Array<int> valor, Array<int> cantidad)
 {
 	if (Termine(objectoActual))
 	{
@@ -58,8 +56,8 @@ void Mochila<Capacidad>::MochilaBT(Capacidad capacidad, int objectoActual, Array
 	else {
 		for (int k = 0; k <= cantidad[objectoActual]; k++)
 		{
-			Capacidad capacidadAux = capacidad - k * peso[objectoActual];
-			int valorAux = valorActual + k* valor[objectoActual];
+			Capacidad capacidadAux = capacidad - peso[objectoActual] * k;
+			int valorAux = valorActual + valor[objectoActual] * k ;
 
 			if (capacidadAux.EsMenorQueCero()) break;
 

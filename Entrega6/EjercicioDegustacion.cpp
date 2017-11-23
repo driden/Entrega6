@@ -22,11 +22,26 @@ EjercicioDegustacion::EjercicioDegustacion(Array<Producto> productos, nat maxDin
 	capacidadOriginal = CapacidadDegustacion(maxAlcohol, maxDinero, maxCalorias);
 }
 
-void EjercicioDegustacion::Resolver(CapacidadDegustacion capacidad, int objectoActual, Array<int> solucionActual,
-	Array<int> solucionOptima, int valorActual, int& valorOptimo, Array<int> peso, Array<int> valor, Array<int> cantidad)
+Array<nat> EjercicioDegustacion::Resolver()
 {
-	Mochila<CapacidadDegustacion> ejmochila();
-	ejmochila().MochilaBT(capacidad, objectoActual, solucionActual, solucionOptima, valorActual, valorOptimo, peso, valor, cantidad);
+	int objActual = cantidad.Largo - 1;
+	Array<int> solActual(cantidad.Largo,0);
+	Array<int> solOptima(cantidad.Largo,0);
+	int valorOptimo = -1;
+	Resolver(capacidadOriginal, objActual, solActual, solOptima, 0, valorOptimo, peso, valor, cantidad);
+
+	Array<nat> cantidades(cantidad.Largo);
+	for (nat i = 0; i < cantidades.Largo; i++)
+		cantidades[i] = solOptima[i];
+
+	return cantidades;
+}
+
+void EjercicioDegustacion::Resolver(CapacidadDegustacion capacidad, int objectoActual, Array<int> solucionActual,
+	Array<int> solucionOptima, int valorActual, int& valorOptimo, Array<CapacidadDegustacion> peso, Array<int> valor, Array<int> cantidad)
+{
+	Mochila<CapacidadDegustacion> ejmochila = Mochila<CapacidadDegustacion>();
+	ejmochila.MochilaBT(capacidad, objectoActual, solucionActual, solucionOptima, valorActual, valorOptimo, peso, valor, cantidad);
 
 }
 #endif
