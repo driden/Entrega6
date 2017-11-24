@@ -25,6 +25,12 @@
     <Filter Include="Obligatorio\Protectora de animales">
       <UniqueIdentifier>{c4c6648a-95e3-43d8-bbf3-be13c4f8b073}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obligatorio\Viajero">
+      <UniqueIdentifier>{4969320f-2d8d-4a6e-886b-59508f7244bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obligatorio\Grafo">
+      <UniqueIdentifier>{03f25726-ec5b-48cb-821f-29a03f8e7a5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp">
@@ -65,6 +71,21 @@
     </ClCompile>
     <ClCompile Include="CapacidadProtectora.cpp">
       <Filter>Obligatorio\Protectora de animales</Filter>
+    </ClCompile>
+    <ClCompile Include="EjercicioViajero.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="GrafoListaAdy.cpp">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClCompile>
+    <ClCompile Include="NodoGrafo.cpp">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparacionPunteroICiudad.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="HashICiudad.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +145,24 @@
     </ClInclude>
     <ClInclude Include="CapacidadProtectora.h">
       <Filter>Obligatorio\Protectora de animales</Filter>
+    </ClInclude>
+    <ClInclude Include="EjercicioViajero.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="Grafo.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="GrafoListaAdy.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoGrafo.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparacionPunteroICiudad.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="HashICiudad.h">
+      <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
