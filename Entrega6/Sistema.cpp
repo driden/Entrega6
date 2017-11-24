@@ -70,9 +70,13 @@ Iterador<Iterador<Puntero<ICiudad>>> Sistema::Viajero(Array<Puntero<ICiudad>> &c
 	return NULL; //Retorno por defecto
 }
 
+// PRE: desde y hasta son indices validos del arreglo con desde <= hasta
+// POS: devuelve el SubArray creado con la tira de elementos con indices en el rango [desde, hasta]
 template <class T>
 Array<T> SubArray(Array<T> arreglo, nat desde, nat hasta)
 {
+	assert(desde >= 0);
+	assert(hasta < arreglo.Largo);
 	assert(desde <= hasta);
 	
 	Array<T> nuevoArr(hasta - desde + 1);
@@ -81,6 +85,7 @@ Array<T> SubArray(Array<T> arreglo, nat desde, nat hasta)
 
 	return nuevoArr;
 }
+
 Array<nat> Sistema::Intercalar(Array<nat> &arreglo, nat i, nat m, nat d)
 {
 	// Ordenado ascendentemente entre [i, m]
