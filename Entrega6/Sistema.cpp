@@ -70,16 +70,60 @@ Iterador<Iterador<Puntero<ICiudad>>> Sistema::Viajero(Array<Puntero<ICiudad>> &c
 	return NULL; //Retorno por defecto
 }
 
+template <class T>
+Array<T> SubArray(Array<T> arreglo, nat desde, nat hasta)
+{
+	assert(desde <= hasta);
+	
+	Array<T> nuevoArr(hasta - desde + 1);
+	for (nat i = desde; i <= hasta; i++)
+		nuevoArr[i - desde] = arreglo[i];
+
+	return nuevoArr;
+}
 Array<nat> Sistema::Intercalar(Array<nat> &arreglo, nat i, nat m, nat d)
 {
 	// Ordenado ascendentemente entre [i, m]
 	// y [m +1, d]
+	Array<nat> arrIzq = SubArray(arreglo, i, m);
+	Array<nat> arrDer = SubArray(arreglo, m+1, d);
+	Array<nat> arrIntercalado(d - i + 1);
 
-	Array<nat> arr(arreglo.Largo);
+	Iterador<nat> itIzq = arrIzq.ObtenerIterador();
+	Iterador<nat> itDer = arrDer.ObtenerIterador();
 
+	nat x = 0;
 
+	while (itIzq.HayElemento() && itDer.HayElemento())
+	{
+		nat izq = itIzq.ElementoActual();
+		nat der = itDer.ElementoActual();
 
-	return arr;  //Retorno por defecto
+		if (izq > der)
+		{
+			arrIntercalado[x++] = der;
+			itDer.Avanzar();
+		}else
+		{
+			arrIntercalado[x++] = izq;
+			itIzq.Avanzar();
+		}			
+	}
+
+	while (itIzq.HayElemento())
+	{
+		arrIntercalado[x++] = itIzq.ElementoActual();
+		itIzq.Avanzar();
+	}
+
+	while (itDer.HayElemento())
+	{
+		arrIntercalado[x++] = itDer.ElementoActual();
+		itDer.Avanzar();
+	}
+
+	Array<nat>::Copiar(arrIntercalado, arreglo, i);
+	return arreglo;
 }
 
 // PRE: -
