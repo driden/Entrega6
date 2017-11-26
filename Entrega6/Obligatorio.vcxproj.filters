@@ -87,6 +87,13 @@
     <ClCompile Include="HashICiudad.cpp">
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
+    <ClCompile Include="CPBinaryHeap.cpp" />
+    <ClCompile Include="TablaDijkstra.cpp" />
+    <ClCompile Include="ComparacionNodoGrafo.cpp" />
+    <ClCompile Include="ComparacionTuplaVV.cpp" />
+    <ClCompile Include="Ciudad.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CasoDePrueba.h">
@@ -164,5 +171,14 @@
     <ClInclude Include="HashICiudad.h">
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
+    <ClInclude Include="CPBinaryHeap.h" />
+    <ClInclude Include="TablaDijkstra.h" />
+    <ClInclude Include="ComparacionNodoGrafo.h" />
+    <ClInclude Include="ComparacionTuplaVV.h" />
+    <ClInclude Include="Ciudad.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="ColaPrioridadExtendida.h" />
+    <ClInclude Include="FuncionCosto.h" />
   </ItemGroup>
 </Project>

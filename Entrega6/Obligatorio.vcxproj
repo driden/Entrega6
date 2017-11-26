@@ -99,8 +99,12 @@
     <ClCompile Include="CapacidadDegustacion.cpp" />
     <ClCompile Include="CapacidadProtectora.cpp" />
     <ClCompile Include="CasoDePrueba.cpp" />
+    <ClCompile Include="Ciudad.cpp" />
+    <ClCompile Include="ComparacionNodoGrafo.cpp" />
     <ClCompile Include="ComparacionPunteroICiudad.cpp" />
     <ClCompile Include="ComparacionTuplaKV.cpp" />
+    <ClCompile Include="ComparacionTuplaVV.cpp" />
+    <ClCompile Include="CPBinaryHeap.cpp" />
     <ClCompile Include="EjercicioDegustacion.cpp" />
     <ClCompile Include="EjercicioProtectoraAnimales.cpp" />
     <ClCompile Include="EjercicioViajero.cpp" />
@@ -113,17 +117,24 @@
     <ClCompile Include="NodoGrafo.cpp" />
     <ClCompile Include="PruebasMock.cpp" />
     <ClCompile Include="Sistema.cpp" />
+    <ClCompile Include="TablaDijkstra.cpp" />
     <ClCompile Include="TablaIteracion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CapacidadDegustacion.h" />
     <ClInclude Include="CapacidadProtectora.h" />
     <ClInclude Include="CasoDePrueba.h" />
+    <ClInclude Include="Ciudad.h" />
+    <ClInclude Include="ColaPrioridadExtendida.h" />
+    <ClInclude Include="ComparacionNodoGrafo.h" />
     <ClInclude Include="ComparacionPunteroICiudad.h" />
     <ClInclude Include="ComparacionTuplaKV.h" />
+    <ClInclude Include="ComparacionTuplaVV.h" />
+    <ClInclude Include="CPBinaryHeap.h" />
     <ClInclude Include="EjercicioDegustacion.h" />
     <ClInclude Include="EjercicioProtectoraAnimales.h" />
     <ClInclude Include="EjercicioViajero.h" />
+    <ClInclude Include="FuncionCosto.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="GrafoListaAdy.h" />
     <ClInclude Include="HashAbiertoImpl.h" />
@@ -140,6 +151,7 @@
     <ClInclude Include="PruebasMock.h" />
     <ClInclude Include="Sistema.h" />
     <ClInclude Include="Tabla.h" />
+    <ClInclude Include="TablaDijkstra.h" />
     <ClInclude Include="TablaIteracion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

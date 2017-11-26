@@ -276,6 +276,50 @@ void Caballo2()
 	}
 }
 
+void Viajero1()
+{
+	Puntero<ISistema> interfaz = Inicializar();
+	Array<Puntero<ICiudad>> ciudadesDelMapa = Array<Puntero<ICiudad>>(5);
+	ciudadesDelMapa[0] = new CiudadMock("Artigas", 0);
+	ciudadesDelMapa[1] = new CiudadMock("Paysandu", 1);
+	ciudadesDelMapa[2] = new CiudadMock("Montevideo", 2);
+	ciudadesDelMapa[3] = new CiudadMock("Salto", 3);
+	ciudadesDelMapa[4] = new CiudadMock("Punta del Este", 4);
+
+	Matriz<nat> mapa = Matriz<nat>(5, 5);
+	for (nat i = 0; i < mapa.Largo; i++)
+	{
+		for (nat j = 0; j < mapa.Ancho; j++)
+		{
+			mapa[i][j] = 0;
+		}
+	}
+
+	mapa[0][1] = 20;
+	mapa[0][2] = 40;
+	mapa[1][2] = 100;
+	mapa[2][3] = 190;
+	mapa[2][4] = 100;
+	mapa[3][0] = 30;
+	mapa[4][3] = 50;
+
+	Array<Puntero<ICiudad>> ciudadesPasar = Array<Puntero<ICiudad>>(2);
+	ciudadesPasar[0] = ciudadesDelMapa[0];
+	ciudadesPasar[1] = ciudadesDelMapa[3];
+
+	Array<Iterador<Puntero<ICiudad>>> resultados = Array<Iterador<Puntero<ICiudad>>>(1);
+	Array<Puntero<ICiudad>> resultado = Array<Puntero<ICiudad>>(4);
+	resultado[0] = ciudadesDelMapa[2];
+	resultado[1] = ciudadesDelMapa[4];
+	resultado[2] = ciudadesDelMapa[3];
+	resultado[3] = ciudadesDelMapa[0];
+
+	resultados[0] = resultado.ObtenerIterador();
+
+	Iterador<Iterador<Puntero<ICiudad>>> esperado = resultados.ObtenerIterador();
+	Iterador<Iterador<Puntero<ICiudad>>> obtenido = interfaz->Viajero(ciudadesDelMapa, mapa, ciudadesDelMapa[2], ciudadesPasar.ObtenerIterador(), 255);
+}
+
 void main()
 {
 	Puntero<ConductorPrueba> cp = new ConductorPrueba();
@@ -288,5 +332,7 @@ void main()
 	//Laberinto2();
 	//Caballo();
 	//Caballo2();
+	/*Viajero1();*/
+
 	system("pause");
 }

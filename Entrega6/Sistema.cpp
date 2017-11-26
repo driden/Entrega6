@@ -3,6 +3,7 @@
 #include "ListaEncadenada.h"
 #include "EjercicioDegustacion.h"
 #include "EjercicioProtectoraAnimales.h"
+#include "EjercicioViajero.h"
 
 //#define DEBUG_MATRIZ
 
@@ -64,10 +65,8 @@ void Sistema::QuickSort(Array<T> arr, int low, int high)
 
 Iterador<Iterador<Puntero<ICiudad>>> Sistema::Viajero(Array<Puntero<ICiudad>> &ciudadesDelMapa, Matriz<nat> &mapa, Puntero<ICiudad> &ciudadPartida, Iterador<Puntero<ICiudad>> &ciudadesPasar, nat costoMax)
 {
-	/*
-   Codigo de implementacion de la solucion
-   */
-	return NULL; //Retorno por defecto
+	EjercicioViajero ejViajero(ciudadesDelMapa, mapa, ciudadPartida, ciudadesPasar, costoMax);
+	return ejViajero.Resolver(); //Retorno por defecto
 }
 
 // PRE: desde y hasta son indices validos del arreglo con desde <= hasta

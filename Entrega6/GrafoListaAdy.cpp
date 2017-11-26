@@ -9,6 +9,7 @@
 #include "ComparacionNodoGrafo.h"
 #include "TablaDijkstra.h"
 #include "ComparacionTuplaVV.h"
+
 template <class V, class A>
 GrafoListaAdy<V, A>::GrafoListaAdy(nat maxVertices, Puntero<FuncionHash<V>> func, const Comparador<V>& comp)
 	:compVertice(comp)

@@ -46,6 +46,7 @@ void ListaEncadenada<T>::Eliminar(const T& e)
 	if (anterior == it)
 	{
 		principio = principio->sig;
+		ultimo = nullptr;
 	}
 	else
 	{
