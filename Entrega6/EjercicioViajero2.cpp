@@ -117,10 +117,11 @@ Iterador<nat> EjercicioViajero2::Recorrer()
 		while (it.HayElemento())
 		{
 			nat vActual = it.ElementoActual();
-			pLista->Insertar(vActual);
+			nat largo = pLista->Largo();
 			visitadas[vActual] = true;
-
 			it.Avanzar();
+			if (largo > 0 && pLista->Obtener(largo - 1) == vActual) continue;
+			pLista->Insertar(vActual);
 		}
 
 		i++;

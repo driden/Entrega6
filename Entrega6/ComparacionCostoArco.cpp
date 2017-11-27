@@ -17,8 +17,8 @@ CompRetorno ComparacionCostoArco::Comparar(const CostoArco& t1, const CostoArco&
 	if (costo1 > costo2) return MAYOR;
 
 	// Si costo es igual
-	if (distancia1 < distancia2) return MENOR; // prefiere el de mayor distancia
-	if (distancia1 > distancia2) return MAYOR;
+	if (distancia1 < distancia2) return MAYOR; // prefiere el de mayor distancia
+	if (distancia1 > distancia2) return MENOR;
 
 	//si distancia es la misma
 	if (tiempo1 < tiempo2) return MENOR;
