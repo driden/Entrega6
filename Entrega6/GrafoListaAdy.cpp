@@ -9,6 +9,7 @@
 #include "ComparacionNodoGrafo.h"
 #include "TablaDijkstra.h"
 #include "ComparacionTuplaVV.h"
+#include "Dijkstra.h"
 
 template <class V, class A>
 GrafoListaAdy<V, A>::GrafoListaAdy(nat maxVertices, Puntero<FuncionHash<V>> func, const Comparador<V>& comp)
@@ -35,7 +36,7 @@ const V& GrafoListaAdy<V, A>::GetVertice(const nat pos) const
 }
 
 template <class V, class A>
-Puntero<Lista<NodoGrafo<V, A>>> GrafoListaAdy<V, A>::GetListaAdyacencias(const V& v) const
+Puntero<Lista<NodoGrafo<V, A>>> GrafoListaAdy<V, A>::GetAdyacenciasVertice(const V& v) const
 {
 	const nat posV1 = GetPosVertice(v);
 
@@ -92,7 +93,7 @@ void GrafoListaAdy<V, A>::AgregarArco(const V& v1, const V& v2, const A& arco)
 {
 	// Arco de v1 a v2.
 	// adyacencias de v1
-	Puntero<Lista<NodoGrafo<V, A>>> adyacencias = GetListaAdyacencias(v1);
+	Puntero<Lista<NodoGrafo<V, A>>> adyacencias = GetAdyacenciasVertice(v1);
 
 	if (adyacencias == nullptr)
 	{
@@ -112,7 +113,7 @@ void GrafoListaAdy<V, A>::AgregarArco(const V& v1, const V& v2, const A& arco)
 template <class V, class A>
 void GrafoListaAdy<V, A>::BorrarArco(const V& v1, const V& v2)
 {
-	Puntero<Lista<NodoGrafo<V, A>>> adyacencias = GetListaAdyacencias(v1);
+	Puntero<Lista<NodoGrafo<V, A>>> adyacencias = GetAdyacenciasVertice(v1);
 	NodoGrafo<V, A> aBorrar(v1, v2);
 	adyacencias->Eliminar(aBorrar);
 }
@@ -130,7 +131,7 @@ Iterador<V> GrafoListaAdy<V, A>::Vertices() const
 template <class V, class A>
 Iterador<V> GrafoListaAdy<V, A>::Adyacentes(const V& v) const
 {
-	Puntero<Lista<NodoGrafo<V, A>>> adyacencias = GetListaAdyacencias(v);
+	Puntero<Lista<NodoGrafo<V, A>>> adyacencias = GetAdyacenciasVertice(v);
 	Array<V> ady(arrVertices.Largo - 1);
 	int tope = -1;
 
@@ -180,7 +181,7 @@ Iterador<V> GrafoListaAdy<V, A>::Incidentes(const V& v) const
 template <class V, class A>
 const A& GrafoListaAdy<V, A>::ObtenerArco(const V& v1, const V& v2) const
 {
-	Puntero<Lista<NodoGrafo<V, A>>> adyacentes = GetListaAdyacencias(v1);
+	Puntero<Lista<NodoGrafo<V, A>>> adyacentes = GetAdyacenciasVertice(v1);
 	Iterador<NodoGrafo<V, A>> iterador = adyacentes->ObtenerIterador();
 
 	while (iterador.HayElemento())
@@ -220,7 +221,7 @@ nat GrafoListaAdy<V, A>::CantidadArcos() const
 template <class V, class A>
 nat GrafoListaAdy<V, A>::CantidadAdyacentes(const V& v) const
 {
-	Puntero<Lista<NodoGrafo<V, A>>> adyacentes = GetListaAdyacencias(v);
+	Puntero<Lista<NodoGrafo<V, A>>> adyacentes = GetAdyacenciasVertice(v);
 	const nat total = adyacentes != nullptr ? adyacentes->Largo() : 0;
 	return total;
 }
@@ -265,7 +266,7 @@ bool GrafoListaAdy<V, A>::ExisteVertice(const V& v) const
 template <class V, class A>
 bool GrafoListaAdy<V, A>::ExisteArco(const V& v1, const V& v2) const
 {
-	Puntero<Lista<NodoGrafo<V, A>>> adyacentes = GetListaAdyacencias(v1);
+	Puntero<Lista<NodoGrafo<V, A>>> adyacentes = GetAdyacenciasVertice(v1);
 
 	if (!adyacentes) return false;
 
@@ -294,68 +295,45 @@ bool GrafoListaAdy<V, A>::EstaVacio() const
 }
 
 template <class V, class A>
-Array<TablaDijkstra<V, A>> GrafoListaAdy<V, A>::Dijkstra(const V& vO, const V& vD, Array<TablaDijkstra<V, A>> tabla) const
+bool GrafoListaAdy<V, A>::HayCaminoAux(Array<bool> conocidos, const V& vO, const V& vD) const
 {
-	const nat iVO = GetPosVertice(vO);
-	tabla[iVO].conocido = true;
-	tabla[iVO].costo = 0;
 
-	Puntero<ColaPrioridadExtendida<V, A>> pq = new CPBinaryHeap<V, A>(compVertice, Comparador<A>::Default, fHash);
+	V vActual = vO;
+	conocidos[GetPosVertice(vActual)] = true;
+	Puntero<Lista<NodoGrafo<V, A>>> ady = GetAdyacenciasVertice(vActual);
 
-	pq->InsertarConPrioridad(vO, 0);
+	bool hayCamino = compVertice.SonIguales(vO, vD);
 
-	while (!pq->EstaVacia())
+	if (!hayCamino)
 	{
-		const V vActual = pq->ObtenerElementoMayorPrioridad();
-		pq->EliminarElementoMayorPrioridad();
-
-		nat posicion = GetPosVertice(vActual);
-		tabla[posicion].conocido = true;
-
-		Iterador<V> iterAdy = Adyacentes(vActual);
-
-		while (iterAdy.HayElemento())
+		if (ady != nullptr && !ExisteArco(vActual, vD))
 		{
-			V w = iterAdy.ElementoActual();
-			iterAdy.Avanzar();
-
-			const nat posW = GetPosVertice(w);
-			if (tabla[posW].conocido) continue;
-			A arco = ObtenerArco(vActual, w);
-			if (tabla[posW].costo > tabla[posicion].costo + arco)
+			Iterador<NodoGrafo<V, A>> it = ady->ObtenerIterador();
+			while (it.HayElemento())
 			{
-				tabla[posW].costo = tabla[posicion].costo + arco;
-				tabla[posW].vengo = vActual;
+				V vecino = it.ElementoActual().v2;
+				if (!conocidos[GetPosVertice(vecino)])
+					hayCamino |= HayCaminoAux(conocidos, vecino, vD);
+				it.Avanzar();
 			}
-
-			pq->InsertarConPrioridad(w, arco);
 		}
+		else
+			hayCamino |= ExisteArco(vActual, vD);
 	}
-
-
-	return tabla;
-
+	return hayCamino;
 }
 
 template <class V, class A>
 bool GrafoListaAdy<V, A>::HayCamino(const V& vO, const V& vD) const
 {
-	Array<TablaDijkstra<V, A>> tabla(tope + 1);
-
-	tabla = Dijkstra(vO, vD, tabla);
-
-	nat posD = GetPosVertice(vD);
-	nat posO = GetPosVertice(vO);
-	nat posActual = posD;
-	nat cantidadMov = 0;
-
-	while (tabla[posActual].conocido && compVertice.SonDistintos(vO, tabla[posActual].vengo) && cantidadMov < lGrafo.Largo)
+	if (compVertice.SonIguales(vO, vD))
+		return true;
+	else
 	{
-		posActual = GetPosVertice(tabla[posActual].vengo);
-		cantidadMov++;
+		Array<bool> conocidos(tope + 1);
+		return HayCaminoAux(conocidos, vO, vD);
 	}
 
-	return compVertice.SonIguales(vO, tabla[posActual].vengo);
 }
 
 template <class V, class A>
@@ -463,7 +441,7 @@ Iterador<V> GrafoListaAdy<V, A>::OrdenTopologico() const
 }
 
 template <class V, class A>
-void GrafoListaAdy<V, A>::CargarAristas(Puntero<ColaPrioridadExtendida<Tupla<V, V>, nat>> &pq) const
+void GrafoListaAdy<V, A>::CargarAristas(Puntero<ColaPrioridadExtendida<Tupla<V, V>, nat>> &pq, const FuncionCosto<V, A>& costo) const
 {
 	Puntero<ComparacionTuplaVV<V>> cTupla = new ComparacionTuplaVV<V>(compVertice);
 	Comparador<Tupla<V, V>> comTVV(cTupla);
@@ -475,17 +453,17 @@ void GrafoListaAdy<V, A>::CargarAristas(Puntero<ColaPrioridadExtendida<Tupla<V, 
 			nullptr);
 	Puntero<Lista<NodoGrafo<V, A>>> adyacencias;
 	//Ordeno todas las aristas
-	for (int i = 0; i<tope; i++)
+	for (int i = 0; i < tope; i++)
 	{
 		V vO = GetVertice(i);
-		adyacencias = GetListaAdyacencias(vO);
+		adyacencias = GetAdyacenciasVertice(vO);
 		if (!adyacencias) continue;
 		Iterador<NodoGrafo<V, A>> iterNodoGrafo = adyacencias->ObtenerIterador();
 
 		while (iterNodoGrafo.HayElemento())
 		{
 			NodoGrafo<V, A> nodo = iterNodoGrafo.ElementoActual();
-			nat c = nodo.arista;
+			nat c = costo(nodo.v1,nodo.v2,nodo.arista);
 			Tupla<V, V> t(vO, nodo.v2);
 			pq->InsertarConPrioridad(t, c);
 			iterNodoGrafo.Avanzar();
@@ -523,32 +501,33 @@ template <class V, class A>
 Iterador<Tupla<V, V>> GrafoListaAdy<V, A>::ArbolCubrimientoMinimo(const FuncionCosto<V, A>& costo) const
 {
 	Puntero<ColaPrioridadExtendida<Tupla<V, V>, nat>> pq;
-	CargarAristas(pq);
+	CargarAristas(pq, costo);
 	Puntero<ComparacionTuplaVV<V>> cTupla = new ComparacionTuplaVV<V>(compVertice);
 	Comparador<Tupla<V, V>> comTVV(cTupla);
 	Puntero<Lista<Tupla<V, V>>> listaTuplas = new ListaEncadenada<Tupla<V, V>>(comTVV);
-	Array<int> componenteConexa(tope+1);
+	Array<int> componenteConexa(tope + 1);
 	for (nat k = 0; k < componenteConexa.Largo; k++)
 		componenteConexa[k] = k; // Cada vertice tiene su propia componente conexa
-	
+	Array<bool> visitado(tope + 1, false);
 	nat cont = 0;
 
-	while (!pq->EstaVacia() && cont < arrVertices.Largo-1)
+	while (!pq->EstaVacia() && cont < arrVertices.Largo - 1)
 	{
 		Tupla<V, V> tVV = pq->ObtenerElementoMayorPrioridad();
 		pq->EliminarElementoMayorPrioridad();
 
 		V v1 = tVV.Dato1;
 		V v2 = tVV.Dato2;
-
+		nat posV2 = GetPosVertice(v2);
 		// Si no genera ciclo
-		if (ComponenteConexa(componenteConexa, v1) != ComponenteConexa(componenteConexa, v2))
+		if (!visitado[posV2] && ComponenteConexa(componenteConexa, v1) != ComponenteConexa(componenteConexa, v2))
 		{
-			MergeComponenteConexa(componenteConexa,v1, v2);
+			MergeComponenteConexa(componenteConexa, v1, v2);
 			cont++;
 			listaTuplas->Insertar(tVV);
+			visitado[posV2] = true;
 		}
-			
+
 	}
 
 	return listaTuplas->ObtenerIterador();
@@ -557,7 +536,40 @@ Iterador<Tupla<V, V>> GrafoListaAdy<V, A>::ArbolCubrimientoMinimo(const FuncionC
 template <class V, class A>
 Iterador<Iterador<V>> GrafoListaAdy<V, A>::ComponentesConexas() const
 {
-	return nullptr;
+	Array<Puntero<Lista<V>>> compConexV(tope + 1, new ListaEncadenada<V>(compVertice));
+	Array<int> componenteConexa(tope + 1);
+	for (nat k = 0; k < componenteConexa.Largo; k++)
+		componenteConexa[k] = k; // Cada vertice tiene su propia componente conexa
+	Array<bool> visitado(tope + 1, false);
+
+	nat cantidadComponentes = 0;
+	for (nat vO = 0; vO < componenteConexa.Largo; vO++) {
+		for (nat vD = vO + 1; vD < componenteConexa.Largo; vD++)
+		{
+			V orig = GetVertice(vO);
+			V dest = GetVertice(vD);
+
+			if (HayCamino(orig,dest))
+			{
+				MergeComponenteConexa(componenteConexa, orig, dest);
+			}
+		}
+	}
+	Puntero<Lista<Iterador<V>>> listaComponentesConextas = new ListaEncadenada<Iterador<V>>(Comparador<Iterador<V>>::Default);
+	for (nat i = 0; i < componenteConexa.Largo;i++)
+	{
+		Puntero<Lista<V>> lvertices = new ListaEncadenada<V>(compVertice);
+		for(nat j = i;j <componenteConexa.Largo;j++)
+		{
+			if (componenteConexa[j] == i)
+			{
+				lvertices->Insertar(GetVertice(j));
+			}
+		}
+		if (lvertices->Largo() > 0) listaComponentesConextas->Insertar(lvertices->ObtenerIterador());
+	}
+
+	return listaComponentesConextas->ObtenerIterador();
 }
 
 #endif

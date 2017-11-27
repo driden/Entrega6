@@ -35,6 +35,7 @@ public:
 	bool ExisteArco(const V& v1, const V& v2) const override;
 	bool EstaLleno() const override;
 	bool EstaVacio() const override;
+	bool HayCaminoAux(Array<bool> conocidos, const V& vO, const V& vD) const;
 
 
 	bool HayCamino(const V& vO, const V& vD) const override;
@@ -45,6 +46,14 @@ public:
 
 	Iterador<Tupla<V, V>> ArbolCubrimientoMinimo(const FuncionCosto<V, A>& costo = FuncionCosto<V, A>::Default) const override;
 	Iterador<Iterador<V>> ComponentesConexas() const override;
+
+	// Pre: existe vertice V en el grafo
+	// Pos: devuelve el natural que ocupa el Vertice en el hash
+	const nat GetPosVertice(const V &v) const override;
+
+	// Pre: Existe un V con posicion pos
+	// Pos: Devuelve una referencia al vertice en la posicion "pos"
+	const V& GetVertice(const nat pos) const override;
 
 private:
 	//Estructuras
@@ -58,17 +67,11 @@ private:
 	
 	// Funciones
 
-	// Pre: existe vertice V en el grafo
-	// Pos: devuelve el natural que ocupa el Vertice en el hash
-	const nat GetPosVertice(const V &v) const;
 
-	// Pre: Existe un V con posicion pos
-	// Pos: Devuelve una referencia al vertice en la posicion "pos"
-	const V& GetVertice(const nat pos) const;
 
 	// Pre: v es un vertice del Grafo
 	// Pos: devuelve la lista de vertices Adyacentes a v
-	Puntero<Lista<NodoGrafo<V, A>>> GetListaAdyacencias(const V &v) const;
+	Puntero<Lista<NodoGrafo<V, A>>> GetAdyacenciasVertice(const V &v) const;
 	
 	// Pre: pos es la posicion de un vertice en el arreglo de vertices
 	// Pos: devuelve la lista de vertices Adyacentes a v
@@ -76,7 +79,7 @@ private:
 	
 	// Pre: los vertices vO y vD existen en el grafo
 	// Pos: se aplica el agloritmo de dijkstra para encontrar el camino mas corto entre ambos vertices
-	Array<TablaDijkstra<V,A>> Dijkstra(const V& vO, const V& vD, Array<TablaDijkstra<V, A>> tabla) const;
+	//Array<TablaDijkstra<V,A>> Dijkstra(const V& vO, const V& vD, Array<TablaDijkstra<V, A>> tabla) const;
 	
 	// Pre: vActual es la posicion un vertice del Grafo en el arrgelo de vertices
 	// Pos: Marca como visitados todos los vertices a los que puede acceder desde el vActual
@@ -86,7 +89,7 @@ private:
 	// Pos: Se aplica, en DFS, el algoritmo de ordenamiento topologico del grafo
 	void OrdenTopologicoDFS(Array<bool> visitados, int v, Array<V> stack, int &topeStack) const;
 
-	void CargarAristas(Puntero<ColaPrioridadExtendida<Tupla<V, V>, unsigned>>& pq) const;
+	void CargarAristas(Puntero<ColaPrioridadExtendida<Tupla<V, V>, unsigned>>& pq, const FuncionCosto<V, A>& costo) const;
 	nat ComponenteConexa(Array<int> cc, const V& v) const;
 	void RefrescarComponentes(Array<int> cc, nat vO, nat vD) const;
 

@@ -4,6 +4,7 @@
 #include "EjercicioDegustacion.h"
 #include "EjercicioProtectoraAnimales.h"
 #include "EjercicioViajero.h"
+#include "EjercicioViajero2.h"
 
 //#define DEBUG_MATRIZ
 
@@ -296,8 +297,8 @@ Array<nat> Sistema::Degustacion(Array<Producto> productos, nat maxDinero, nat ma
 Tupla<TipoRetorno, Iterador<nat>> Sistema::Viajero2(Matriz<Tupla<nat, nat, nat>> relacionesCiudades, Iterador<nat> CiudadesPasar, Iterador<nat> CiudadesNoPasar)
 {
 	//Implementar.
-
-	return Tupla<TipoRetorno, Iterador<nat>>();
+	EjercicioViajero2 ejv2(relacionesCiudades, CiudadesPasar, CiudadesNoPasar);
+	return Tupla<TipoRetorno, Iterador<nat>>(OK,ejv2.Recorrer());
 }
 
 Tupla<TipoRetorno, Array<nat>> Sistema::ProteccionAnimales(Array<Accion> acciones, nat maxVeterinarios, nat maxVehiculos, nat maxDinero, nat maxVacunas, nat maxVoluntarios)

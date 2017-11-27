@@ -88,10 +88,22 @@
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
     <ClCompile Include="CPBinaryHeap.cpp" />
-    <ClCompile Include="TablaDijkstra.cpp" />
     <ClCompile Include="ComparacionNodoGrafo.cpp" />
     <ClCompile Include="ComparacionTuplaVV.cpp" />
     <ClCompile Include="Ciudad.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="EjercicioViajero2.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="Dijkstra.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="TablaDijkstra.cpp">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="CostoArco.cpp" />
+    <ClCompile Include="ComparacionCostoArco.cpp">
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
   </ItemGroup>
@@ -172,7 +184,6 @@
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
     <ClInclude Include="CPBinaryHeap.h" />
-    <ClInclude Include="TablaDijkstra.h" />
     <ClInclude Include="ComparacionNodoGrafo.h" />
     <ClInclude Include="ComparacionTuplaVV.h" />
     <ClInclude Include="Ciudad.h">
@@ -180,5 +191,18 @@
     </ClInclude>
     <ClInclude Include="ColaPrioridadExtendida.h" />
     <ClInclude Include="FuncionCosto.h" />
+    <ClInclude Include="EjercicioViajero2.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="Dijkstra.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="TablaDijkstra.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="CostoArco.h" />
+    <ClInclude Include="ComparacionCostoArco.h">
+      <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
