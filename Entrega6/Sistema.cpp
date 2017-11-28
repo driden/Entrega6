@@ -5,6 +5,7 @@
 #include "EjercicioProtectoraAnimales.h"
 #include "EjercicioViajero.h"
 #include "EjercicioViajero2.h"
+#include "EjercicioMaterias.h"
 
 //#define DEBUG_MATRIZ
 
@@ -477,7 +478,7 @@ Tupla<TipoRetorno, Array<nat>> Sistema::OptimizarGranja(Array<Tupla<nat, nat, na
 
 Tupla<TipoRetorno, Iterador<Tupla<Cadena, bool>>> Sistema::InscribirMaterias(Iterador<Tupla<Cadena, nat, nat>> matutino, Iterador<Tupla<Cadena, nat, nat>> nocturno, nat horasM, nat horasN)
 {
-	//Implementar.
+	EjercicioMaterias ejM(matutino, nocturno, horasM,horasN);
 
 	return Tupla<TipoRetorno, Iterador<Tupla<Cadena, bool>>>();
 }

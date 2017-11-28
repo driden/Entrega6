@@ -19,16 +19,16 @@ Cadena CasoDePrueba::GetNombre()const
 
 void CasoDePrueba::CorrerPruebaConcreta()
 {
-	PruebaLaberinto();
-	PruebaViajero();
-	PruebaIntercalar();
-	PruebaDegustacion();
+	//PruebaLaberinto();
+	//PruebaViajero();
+	//PruebaIntercalar();
+	//PruebaDegustacion();
 
-	PruebaViajero2();
-	PruebaProteccionAnimales();
-	PruebaQuickSort();
-	PruebaCaminoCaballo();
-	PruebaOptimizarGranja();
+	//PruebaViajero2();
+	//PruebaProteccionAnimales();
+	//PruebaQuickSort();
+	//PruebaCaminoCaballo();
+	//PruebaOptimizarGranja();
 	PruebaInscribirMaterias();
 }
 

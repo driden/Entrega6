@@ -101,6 +101,7 @@
     <ClCompile Include="CasoDePrueba.cpp" />
     <ClCompile Include="Ciudad.cpp" />
     <ClCompile Include="ComparacionCostoArco.cpp" />
+    <ClCompile Include="ComparacionMateria.cpp" />
     <ClCompile Include="ComparacionNodoGrafo.cpp" />
     <ClCompile Include="ComparacionPunteroICiudad.cpp" />
     <ClCompile Include="ComparacionTuplaKV.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="CPBinaryHeap.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="EjercicioDegustacion.cpp" />
+    <ClCompile Include="EjercicioMaterias.cpp" />
     <ClCompile Include="EjercicioProtectoraAnimales.cpp" />
     <ClCompile Include="EjercicioViajero.cpp" />
     <ClCompile Include="EjercicioViajero2.cpp" />
@@ -131,6 +133,7 @@
     <ClInclude Include="Ciudad.h" />
     <ClInclude Include="ColaPrioridadExtendida.h" />
     <ClInclude Include="ComparacionCostoArco.h" />
+    <ClInclude Include="ComparacionMateria.h" />
     <ClInclude Include="ComparacionNodoGrafo.h" />
     <ClInclude Include="ComparacionPunteroICiudad.h" />
     <ClInclude Include="ComparacionTuplaKV.h" />
@@ -139,6 +142,7 @@
     <ClInclude Include="CPBinaryHeap.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="EjercicioDegustacion.h" />
+    <ClInclude Include="EjercicioMaterias.h" />
     <ClInclude Include="EjercicioProtectoraAnimales.h" />
     <ClInclude Include="EjercicioViajero.h" />
     <ClInclude Include="EjercicioViajero2.h" />

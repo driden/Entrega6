@@ -31,6 +31,9 @@
     <Filter Include="Obligatorio\Grafo">
       <UniqueIdentifier>{03f25726-ec5b-48cb-821f-29a03f8e7a5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obligatorio\Materias">
+      <UniqueIdentifier>{50ee7abf-b0a2-4f3d-a554-8ed2bbdedee2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp">
@@ -105,6 +108,12 @@
     <ClCompile Include="CostoArco.cpp" />
     <ClCompile Include="ComparacionCostoArco.cpp">
       <Filter>Obligatorio\Viajero</Filter>
+    </ClCompile>
+    <ClCompile Include="EjercicioMaterias.cpp">
+      <Filter>Obligatorio\Materias</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparacionMateria.cpp">
+      <Filter>Obligatorio\Materias</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +212,12 @@
     <ClInclude Include="CostoArco.h" />
     <ClInclude Include="ComparacionCostoArco.h">
       <Filter>Obligatorio\Viajero</Filter>
+    </ClInclude>
+    <ClInclude Include="EjercicioMaterias.h">
+      <Filter>Obligatorio\Materias</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparacionMateria.h">
+      <Filter>Obligatorio\Materias</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
