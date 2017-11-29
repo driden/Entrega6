@@ -28,8 +28,8 @@ void CasoDePrueba::CorrerPruebaConcreta()
 	//PruebaProteccionAnimales();
 	//PruebaQuickSort();
 	//PruebaCaminoCaballo();
-	//PruebaOptimizarGranja();
-	PruebaInscribirMaterias();
+	PruebaOptimizarGranja();
+	//PruebaInscribirMaterias();
 }
 
 void CasoDePrueba::Verificar(TipoRetorno obtenido, TipoRetorno esperado, Cadena comentario)

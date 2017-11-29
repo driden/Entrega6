@@ -6,6 +6,7 @@
 #include "EjercicioViajero.h"
 #include "EjercicioViajero2.h"
 #include "EjercicioMaterias.h"
+#include "EjercicioGranja.h"
 
 //#define DEBUG_MATRIZ
 
@@ -471,9 +472,8 @@ Tupla<TipoRetorno, Iterador<Iterador<Tupla<int, int>>>> Sistema::CaminoCaballo
 
 Tupla<TipoRetorno, Array<nat>> Sistema::OptimizarGranja(Array<Tupla<nat, nat, nat>>& semillas, nat dinero, nat tierra, nat agua)
 {
-	//Implementar.
-
-	return Tupla<TipoRetorno, Array<nat>>();
+	EjercicioGranja ejG(semillas,dinero,tierra,agua);
+	return Tupla<TipoRetorno, Array<nat>>(OK,ejG.Resolver());
 }
 
 Tupla<TipoRetorno, Iterador<Tupla<Cadena, bool>>> Sistema::InscribirMaterias(Iterador<Tupla<Cadena, nat, nat>> matutino, Iterador<Tupla<Cadena, nat, nat>> nocturno, nat horasM, nat horasN)

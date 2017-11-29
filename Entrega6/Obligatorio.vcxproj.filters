@@ -34,6 +34,9 @@
     <Filter Include="Obligatorio\Materias">
       <UniqueIdentifier>{50ee7abf-b0a2-4f3d-a554-8ed2bbdedee2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obligatorio\Granja">
+      <UniqueIdentifier>{9d14e9da-7d8a-4080-8da7-0777e2ad9b49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CasoDePrueba.cpp">
@@ -68,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="EjercicioProtectoraAnimales.cpp">
       <Filter>Obligatorio\Protectora de animales</Filter>
-    </ClCompile>
-    <ClCompile Include="CapacidadDegustacion.cpp">
-      <Filter>Obligatorio\Degustacion</Filter>
     </ClCompile>
     <ClCompile Include="CapacidadProtectora.cpp">
       <Filter>Obligatorio\Protectora de animales</Filter>
@@ -126,6 +126,7 @@
     <ClCompile Include="ComparacionTuplaMateriaBool.cpp">
       <Filter>Obligatorio\Materias</Filter>
     </ClCompile>
+    <ClCompile Include="EjercicioGranja.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CasoDePrueba.h">
@@ -244,6 +245,10 @@
     </ClInclude>
     <ClInclude Include="ComparacionTuplaMateriaBool.h">
       <Filter>Obligatorio\Materias</Filter>
+    </ClInclude>
+    <ClInclude Include="EjercicioGranja.h" />
+    <ClInclude Include="CapacidadGranja.h">
+      <Filter>Obligatorio\Granja</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

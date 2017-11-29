@@ -96,7 +96,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CapacidadDegustacion.cpp" />
     <ClCompile Include="CapacidadProtectora.cpp" />
     <ClCompile Include="CasoDePrueba.cpp" />
     <ClCompile Include="Ciudad.cpp" />
@@ -111,6 +110,7 @@
     <ClCompile Include="CPBinaryHeap.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="EjercicioDegustacion.cpp" />
+    <ClCompile Include="EjercicioGranja.cpp" />
     <ClCompile Include="EjercicioMaterias.cpp" />
     <ClCompile Include="EjercicioProtectoraAnimales.cpp" />
     <ClCompile Include="EjercicioViajero.cpp" />
@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CapacidadDegustacion.h" />
+    <ClInclude Include="CapacidadGranja.h" />
     <ClInclude Include="CapacidadProtectora.h" />
     <ClInclude Include="CasoDePrueba.h" />
     <ClInclude Include="Ciudad.h" />
@@ -144,6 +145,7 @@
     <ClInclude Include="CPBinaryHeap.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="EjercicioDegustacion.h" />
+    <ClInclude Include="EjercicioGranja.h" />
     <ClInclude Include="EjercicioMaterias.h" />
     <ClInclude Include="EjercicioProtectoraAnimales.h" />
     <ClInclude Include="EjercicioViajero.h" />
