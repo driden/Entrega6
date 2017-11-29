@@ -105,6 +105,7 @@
     <ClCompile Include="ComparacionNodoGrafo.cpp" />
     <ClCompile Include="ComparacionPunteroICiudad.cpp" />
     <ClCompile Include="ComparacionTuplaKV.cpp" />
+    <ClCompile Include="ComparacionTuplaMateriaBool.cpp" />
     <ClCompile Include="ComparacionTuplaVV.cpp" />
     <ClCompile Include="CostoArco.cpp" />
     <ClCompile Include="CPBinaryHeap.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="ComparacionNodoGrafo.h" />
     <ClInclude Include="ComparacionPunteroICiudad.h" />
     <ClInclude Include="ComparacionTuplaKV.h" />
+    <ClInclude Include="ComparacionTuplaMateriaBool.h" />
     <ClInclude Include="ComparacionTuplaVV.h" />
     <ClInclude Include="CostoArco.h" />
     <ClInclude Include="CPBinaryHeap.h" />

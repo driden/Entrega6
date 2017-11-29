@@ -31,8 +31,17 @@ public:
 		nat horasM = 0, 
 		nat horasN = 0
 	);
+	Iterador<Tupla<Cadena, bool>> Resolver();
+private:
+	void MateriasBT(int horasManana, int horasNoche, int objectoActual,
+	                Puntero<Lista<Tupla<Materia, bool>>> solucionActual,
+	                Puntero<Lista<Tupla<Materia, bool>>>& solucionOptima, int creditosActual, int& creditosOptimos,
+		Puntero<Lista<Materia>> materias);
+	Puntero<Lista<Tupla<Materia, bool>>> ResolverMaterias();
+	Iterador<Tupla<Cadena, bool>> ConvertirSolucion(Puntero<Lista<Tupla<Materia, bool>>> solucion);
+	
 
 	Puntero<Lista<Materia>> materias;
-	nat horasManana;
-	nat horasNoche;
+	int horasManana;
+	int horasNoche;
 };

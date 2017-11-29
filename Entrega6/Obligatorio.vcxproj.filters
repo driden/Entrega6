@@ -90,9 +90,6 @@
     <ClCompile Include="HashICiudad.cpp">
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
-    <ClCompile Include="CPBinaryHeap.cpp" />
-    <ClCompile Include="ComparacionNodoGrafo.cpp" />
-    <ClCompile Include="ComparacionTuplaVV.cpp" />
     <ClCompile Include="Ciudad.cpp">
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
@@ -105,7 +102,6 @@
     <ClCompile Include="TablaDijkstra.cpp">
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
-    <ClCompile Include="CostoArco.cpp" />
     <ClCompile Include="ComparacionCostoArco.cpp">
       <Filter>Obligatorio\Viajero</Filter>
     </ClCompile>
@@ -113,6 +109,21 @@
       <Filter>Obligatorio\Materias</Filter>
     </ClCompile>
     <ClCompile Include="ComparacionMateria.cpp">
+      <Filter>Obligatorio\Materias</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparacionNodoGrafo.cpp">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparacionTuplaVV.cpp">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClCompile>
+    <ClCompile Include="CostoArco.cpp">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClCompile>
+    <ClCompile Include="CPBinaryHeap.cpp">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparacionTuplaMateriaBool.cpp">
       <Filter>Obligatorio\Materias</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,14 +203,9 @@
     <ClInclude Include="HashICiudad.h">
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
-    <ClInclude Include="CPBinaryHeap.h" />
-    <ClInclude Include="ComparacionNodoGrafo.h" />
-    <ClInclude Include="ComparacionTuplaVV.h" />
     <ClInclude Include="Ciudad.h">
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
-    <ClInclude Include="ColaPrioridadExtendida.h" />
-    <ClInclude Include="FuncionCosto.h" />
     <ClInclude Include="EjercicioViajero2.h">
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
@@ -209,7 +215,6 @@
     <ClInclude Include="TablaDijkstra.h">
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
-    <ClInclude Include="CostoArco.h" />
     <ClInclude Include="ComparacionCostoArco.h">
       <Filter>Obligatorio\Viajero</Filter>
     </ClInclude>
@@ -217,6 +222,27 @@
       <Filter>Obligatorio\Materias</Filter>
     </ClInclude>
     <ClInclude Include="ComparacionMateria.h">
+      <Filter>Obligatorio\Materias</Filter>
+    </ClInclude>
+    <ClInclude Include="ColaPrioridadExtendida.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparacionNodoGrafo.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparacionTuplaVV.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="CostoArco.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="CPBinaryHeap.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="FuncionCosto.h">
+      <Filter>Obligatorio\Grafo</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparacionTuplaMateriaBool.h">
       <Filter>Obligatorio\Materias</Filter>
     </ClInclude>
   </ItemGroup>

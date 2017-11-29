@@ -479,8 +479,9 @@ Tupla<TipoRetorno, Array<nat>> Sistema::OptimizarGranja(Array<Tupla<nat, nat, na
 Tupla<TipoRetorno, Iterador<Tupla<Cadena, bool>>> Sistema::InscribirMaterias(Iterador<Tupla<Cadena, nat, nat>> matutino, Iterador<Tupla<Cadena, nat, nat>> nocturno, nat horasM, nat horasN)
 {
 	EjercicioMaterias ejM(matutino, nocturno, horasM,horasN);
-
-	return Tupla<TipoRetorno, Iterador<Tupla<Cadena, bool>>>();
+	Iterador<Tupla<Cadena, bool>> it = ejM.Resolver();
+	TipoRetorno tRet = it.HayElemento() ? OK : ERROR;
+	return Tupla<TipoRetorno, Iterador<Tupla<Cadena, bool>>>(tRet, it);
 }
 
 
